@@ -34,7 +34,7 @@ if not torch.cuda.is_available():
     if os.environ.get("TORCH_CUDA_ARCH_LIST", None) is None:
         _, bare_metal_major, _ = get_cuda_bare_metal_version(cpp_extension.CUDA_HOME)
         if int(bare_metal_major) == 11:
-            os.environ["TORCH_CUDA_ARCH_LIST"] = "6.0;6.1;6.2;7.0;7.5;8.0"
+            os.environ["TORCH_CUDA_ARCH_LIST"] = "6.0;6.1;6.2;7.0;7.5;8.0;8.6"
         else:
             os.environ["TORCH_CUDA_ARCH_LIST"] = "6.0;6.1;6.2;7.0;7.5"
 
@@ -294,7 +294,7 @@ if "--fast_multihead_attn" in sys.argv:
         _, bare_metal_major, _ = get_cuda_bare_metal_version(cpp_extension.CUDA_HOME)
         if int(bare_metal_major) >= 11:
             cc_flag.append('-gencode')
-            cc_flag.append('arch=compute_80,code=sm_80')
+            cc_flag.append('arch=compute_86,code=sm_86')
 
         subprocess.run(["git", "submodule", "update", "--init", "apex/contrib/csrc/multihead_attn/cutlass"])
         ext_modules.append(
